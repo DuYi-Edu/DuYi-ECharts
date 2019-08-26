@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="js/echarts.js"></script>
+	<style>
+		div{
+			width: 1000px;
+			height: 800px;
+			float: left;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="chart1"></div>
+	<div id="chart2"></div>
+	<script>
+		//console.log(echarts);
+		var myChiart1=echarts.init(document.getElementById('chart1'));	//生成了一个echarts实例
+
+		//柱状图
+		myChiart1.setOption({	//配置图表的参数
+			title:{
+				text:'柱状图',
+			},
+			legend:{	//图例
+				data:['销量']
+			},
+			xAxis:{	//x轴的配置
+				data:['衬衫','羊毛衫','雪纺衫','裤子','高跟鞋','袜子'],
+			},
+			yAxis:{	//y轴的配置
+			},
+			series:{	//系列列表
+				name:'销量',
+				type:'bar',	//图表的类型
+				data:[5,20,36,10,19,24]	//图表的数据
+			}
+		});
+
+
+
+		//饼图
+		var myChiart2=echarts.init(document.getElementById('chart2'));	//生成了一个echarts实例
+
+		myChiart2.setOption({	//配置图表的参数
+			title:{
+				text:'饼图',
+			},
+			series:{	//系列列表
+				name:'访问来源',
+				type:'pie',
+				roseType:'angle',
+				data:[		//图表的数据
+					{value:235,name:'视频广告'},
+					{value:274,name:'联盟广告'},
+					{value:310,name:'邮件营销'},
+					{value:335,name:'直接访问'},
+					{value:400,name:'搜索引擎'},
+				]
+			}
+		});
+	</script>
+</body>
+
+</html>
