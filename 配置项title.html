@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="js/echarts.js"></script>
+	<style>
+		#chart1 {
+			width: 1000px;
+			height: 800px;
+			float: left;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="chart1"></div>
+	<script>
+		var myChiart1 = echarts.init(document.getElementById('chart1'));	//生成了一个echarts实例
+
+		//柱状图
+		myChiart1.setOption({	//配置图表的参数
+			title: {
+				id:'',
+				show:true,	//是否显示标题组件
+				text:'当月销售业绩清单',
+				link:'http://www.baidu.com/',
+				target:'self',
+				textStyle:{
+					color:'gold',
+					fontStyle:'italic',
+					fontWeight:'normal',
+					fontFamily:'Microsoft YaHei',
+					fontSize:20,
+					lineHeight:30,
+					textBorderColor:'red',
+					textBorderWidth:2,
+					textShadowColor:'#000',
+					textShadowBlur:2,
+					textShadowOffsetX:10,
+					textShadowOffsetY:10,
+				},
+
+				//幅标题
+				subtext:'陈学辉',
+				sublink:'http://www.qq.com/',
+				subtarget:'self',
+				subtextStyle:{
+					
+				},
+
+
+				textAlign:'left',	//两个标题的内容不一样的话，有可能被截断
+				padding:[10,5,20,30],
+				itemGap:20,
+
+				left:10,
+				top:10,
+
+				backgroundColor:'#ccc',
+				borderColor:'#000',
+				borderWidth:2,
+				borderRadius:[5,10,20,30],
+
+				shadowColor: 'rgba(0, 0, 0, 0.5)',
+				shadowBlur: 10,
+				shadowOffsetX:5,
+				shadowOffsetY:5,
+			},
+			legend: {	//图例
+				data: ['销量']
+			},
+			xAxis: {	//x轴的配置
+				data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子'],
+			},
+			yAxis: {	//y轴的配置
+			},
+			series: {	//系列列表
+				name: '销量',
+				type: 'bar',	//图表的类型
+				data: [5, 20, 36, 10, 19, 24]	//图表的数据
+			}
+		});
+	</script>
+</body>
+
+</html>
