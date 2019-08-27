@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		#chart1,
+		#chart2 {
+			width: 1000px;
+			height: 800px;
+			float: left;
+		}
+	</style>
+	<script src="js/echarts.js"></script>
+</head>
+
+<body>
+	<div id="chart1"></div>
+	<div id="chart2" style="float: right"></div>
+	<script>
+		var myChart1 = echarts.init(document.getElementById('chart1'));
+
+		//柱状图
+		myChart1.setOption({
+			title: {
+				text: '当月销售业绩',
+			},
+			legend: {	//图例组件
+				//show:true,
+				data: ['今日销量', '昨日销量', '明日销量'],
+				type: 'plain',
+				left: 'right',
+				orient: 'horizontal',
+				padding: [10, 20],
+				itemGap: 20,
+				itemWidth: 35,
+				itemHeight: 24,
+				formatter: '{name} 高么？',
+				formatter: function (name) {
+					return "你说 " + name + " 高么？";
+				},
+				selectedMode: 'multiple',
+			},
+			xAxis: {
+				data: ['衬衫', '羊毛衫', "雪纺衫", "裤子", "高跟鞋", "袜子"]
+			},
+			yAxis: {
+
+			},
+			series: [
+				{
+					name: '今日销量',
+					type: 'bar',
+					data: [5, 20, 36, 10, 19, 24]
+				},
+				{
+					name: '昨日销量',
+					type: 'bar',
+					data: [5, 20, 36, 10, 19, 24]
+				},
+				{
+					name: '明日销量',
+					type: 'bar',
+					data: [5, 20, 36, 10, 19, 24]
+				}
+			]
+		});
+	</script>
+</body>
+
+</html>
