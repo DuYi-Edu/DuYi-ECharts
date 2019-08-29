@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		div {
+			width: 1000px;
+			height: 800px;
+		}
+	</style>
+	<script src="js/echarts.js"></script>
+</head>
+
+<body>
+	<div id="chart1"></div>
+	<script>
+		var myChart1 = echarts.init(document.getElementById('chart1'));
+
+		//柱状图
+		myChart1.setOption({
+			title: {
+				text: '当月销售业绩',
+			},
+			legend: {
+				data: ['今日销量','昨日销量','前日销量'],	
+			},
+			xAxis:[
+				{
+					data: ['衬衫', '羊毛衫', "雪纺衫", "裤子", "高跟鞋", '袜子']
+				},
+				{
+					data: ['衬衫1', '羊毛衫1', "雪纺衫1", "裤子1", "高跟鞋1", '袜子1']
+				},
+				{
+					data: ['衬衫2', '羊毛衫2', "雪纺衫2", "裤子2", "高跟鞋2", '袜子2'],
+					offset:-100,
+				}
+			],
+			//xAxis:{
+				// show:true,
+				// gridIndex:0,
+				// position:'bottom',
+				// //offset:-100,
+				// //type:'category',
+				// data: ['衬衫2', '羊毛衫2', "雪纺衫2", "裤子2", "高跟鞋2", {
+				// 	value:'袜子2',
+				// 	textStyle:{
+				// 		fontSize:16
+				// 	}	
+				// }],
+
+				// /* min:'dataMin',
+				// max:'dataMax', */
+				// /* min:function(value){
+				// 	//console.log(value);
+				// 	return value.min+2;
+				// } */
+				// /* min:1,
+				// max:4 */
+
+
+				
+				// name:'种类',
+				// nameLocation:'end',
+				// nameTextStyle:{
+
+				// },
+				// nameGap: 20,
+				// nameRotate:45,
+				// inverse:false,
+				// boundaryGap:true,
+				// //boundaryGap:['80%', '20%'],
+				// /* scale:false,
+				// splitNumber:10,
+				// minInterval:10,
+				// maxInterval:20, */
+				// //interval:10,
+
+				// //坐标轴轴线相关设置
+				// axisLine:{
+				// 	show:true,
+				// 	onZero:true,
+				// 	symbol:['none', 'arrow'],
+				// 	symbolSize:[30, 25],	//[宽度,高度]
+				// 	symbolOffset:[0,-30],
+				// 	lineStyle:{
+				// 		color:'#000',
+				// 	}
+				// },
+
+
+				// //坐标轴刻度相关设置
+				// axisTick:{
+				// 	show: true,
+				// 	alignWithLabel:false,
+				// 	interval:0,
+				// 	inside:true,
+				// 	length:10,
+				// 	lineStyle:{
+				// 		type:'dotted'
+				// 	}
+				// },
+
+				// //坐标轴刻度标签的相关设置
+				// axisLabel:{
+				// 	show:true,
+				// 	interval:0,
+				// 	inside:false,
+				// 	rotate:45,
+				// 	margin:18,
+				// 	formatter:'{value} 好',
+				// 	formatter:function(value, index){
+				// 		//console.log(value,index);
+				// 		return value+'好';
+				// 	},
+				// 	color:'green',
+				// },
+
+
+				// //分隔线的设置
+				// splitLine:{
+				// 	show:true,
+				// 	interval:1,
+				// 	lineStyle:{
+				// 		color:'#000',
+				// 	}
+				// },
+
+
+				// //分隔区域的设置
+				// splitArea:{
+				// 	show:true,
+				// }
+				
+			//},
+			yAxis: {
+			},
+			series: [
+				// {
+				// 	type: 'bar',
+				// 	data: [5, 7, 10, 15, 19, 24]
+				// 	/* data:[
+				// 		["1997/10/4", 96],
+				// 		["1997/10/5", 196],
+				// 		["1997/10/6", 296],
+				// 		["1997/10/7", 396],
+				// 		["1997/10/8", 496],
+				// 	] */
+				// },
+				{
+					name: '今日销量',
+					type: 'bar',
+					data: [5, 20, 36, 10, 19, 24]
+				},
+				{
+					name: '昨日销量',
+					type: 'bar',
+					data: [5, 20, 36, 10, 19, 24]
+				},
+				{
+					name: '前日销量',
+					type: 'bar',
+					data: [5, 20, 36, 10, 19, 24]
+				}
+			]
+		});
+	</script>
+</body>
+
+</html>
