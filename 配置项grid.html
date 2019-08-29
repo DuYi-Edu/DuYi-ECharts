@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		#chart1{
+			width: 1000px;
+			height: 800px;
+		}
+	</style>
+	<script src="js/echarts.js"></script>
+</head>
+
+<body>
+	<div id="chart1"></div>
+	<script>
+		var myChart=echarts.init(document.getElementById('chart1'));
+		myChart.setOption({
+			grid:{
+				show:true,
+				left:"20%",
+				width:"50%",
+				containLabel:false,
+				backgroundColor:'gray',
+				borderColor:'#f00'
+			},
+			xAxis:{	//x轴的配置
+				//data:['衬衫','羊毛衫','雪纺衫','裤子','高跟鞋','袜子'],
+				splitLine:{	//坐标轴上的刻度线，让它消失
+					show:false,
+				},
+				/* axisLine:{	//坐标轴上的轴线
+					show:false,
+				} */
+			},
+			yAxis:{	//y轴的配置
+				splitLine:{	//坐标轴上的刻度线，让它消失
+					show:false,
+				},
+				/* axisLine:{
+					show:false,
+				} */
+			},
+			series:{	//系列列表
+				name:'销量',
+				type:'bar',	//图表的类型
+				data:[5,20,36,10,19,24]	//图表的数据
+			}
+		});
+	</script>
+</body>
+
+</html>
