@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		#chart {
+			width: 1500px;
+			height: 1000px;
+		}
+	</style>
+	<script src="js/treeMapData.js"></script>
+	<script src="js/echarts.js"></script>
+</head>
+
+<body>
+	<div id="chart"></div>
+	<script>
+		/*
+			[
+				{
+					name:'title',
+					children:[
+						{
+							name:'title.show',
+							value:1880,
+						},
+						{
+							name:'title.textStyle',
+							children:[
+								{
+									name:'title.textStyle.color',
+									value:599,
+								},
+								...
+							]
+						},
+						...
+					]
+				},
+				{
+					name:'legend',
+					children:[
+						{
+							name:'legend.type',
+							value:234,
+						},
+						{
+							name:'legend.textStyle',
+							children:[
+								{
+									name:'legend.textStyle.fontSize',
+									value:'3008',
+								},
+								...
+							]
+						},
+						...
+					]
+				},
+				...
+			] 
+		 */
+		function convert(source) {
+			//....
+			return (function inner(source, target, basePath) {
+				for (var key in source) {
+					var path = basePath ? (basePath + '.' + key) : key;
+
+					if (key.indexOf('$') == -1) {	//这个条件成立说明在循环到的这个key是不包含$字符的
+						target.children=target.children||[];	//子节点容器对象
+
+						var child={	//一个个子节点
+							name:path,
+						};
+
+						target.children.push(child);
+
+						inner(source[key], child, path);
+					}
+				}
+
+				//在这里添加数据
+				if(!target.children){
+					target.value=source.$count || 1;
+				}else{
+					if(source.$count!=undefined){	//获取到的数据有的时候会没有$count这条属性，这里处理一下
+						target.children.push({
+							name:basePath,
+							value:source.$count,
+						});
+					}
+				}
+
+				return target;
+			})(source, [], '');
+		};
+
+		var newData = convert(data);
+		console.log(newData);
+
+
+		var myChart = echarts.init(document.getElementById('chart'));
+		myChart.setOption({
+			title:{
+				text: 'ECharts 配置项查询分布',
+           		subtext: '2016/04',
+			},
+			tootip:{},
+			series:[
+				{
+					name:'option',
+					type:'treemap',
+					squareRatio :0.5 * (1 + Math.sqrt(5)),
+					leafDepth :1,
+					drillDownIcon : '▶',
+					roam:true,
+					nodeClick :'zoomToNode',
+					zoomToNodeRatio : 0.32*0.32,
+
+					levels:[	//多层配置
+						{	//第一层级的配置（顶层）
+							visualDimension :0,
+
+							//color:['purple','green','blue','pink','brown','gray','orange','teal'],
+							colorMappingBy :'index',
+							//visibleMin:15700,
+							//childrenVisibleMin :10000,
+
+							upperLabel :{
+								show:true,
+								color:'#000',
+								fontSize:20,
+								height:50,
+							},
+							itemStyle :{
+								//color:'#fff',
+								borderWidth:4,
+								borderColor:'#555',
+								gapWidth :5,
+							},
+
+							emphasis:{
+								upperLabel :{
+									textBorderColor:'green',
+									textBorderWidth:3,
+								}
+							}
+						},
+						{	//第二层级的配置
+							colorSaturation:[0.1,0.6],
+
+							label:{
+								color:'yellow',
+								fontWeight:'bold',
+							},
+							upperLabel :{
+								show:true,
+								color:'#000',
+								fontSize:20,
+								height:50,
+							},
+							itemStyle :{
+								//color:'#fff',
+								borderWidth:2,
+								borderColor:'#ccc',
+								gapWidth :2,
+								borderColorSaturation :0.7,
+
+								//colorAlpha :0.5,
+								//colorSaturation :0.4,
+
+								/* strokeColor :'blue',
+								strokeWidth :5, */
+							},
+
+							emphasis:{
+								label:{
+									color:'green',
+								},
+								itemStyle:{
+									color:'pink',
+								}
+							}
+						},
+						{	//第三层级的配置
+							colorSaturation :[0.2,0.5],
+							itemStyle:{
+								borderColorSaturation:0.6,
+								gapWidth:1,
+							}
+						},
+						{	//第四层级的配置
+							colorSaturation :[0.3,0.4],
+						}
+					],
+					breadcrumb :{
+						emptyItemWidth :30,
+						itemStyle :{
+							color:'gray',
+							borderColor:'green',
+							shadowColor:'rgba(0,200,0,0.1)',
+							opacity:0.5,
+							textStyle:{
+								color:'blue',
+							}
+						}
+					},
+
+
+					data:convert(data).children
+				}
+			]
+		});
+
+		//console.log(0.5 * (1 + Math.sqrt(5)));
+	</script>
+</body>
+
+</html>
