@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		#chart {
+			width: 1500px;
+			height: 1000px;
+		}
+	</style>
+	<script src="js/echarts.js"></script>
+</head>
+
+<body>
+	<div id="chart"></div>
+	<script>
+		var myChart = echarts.init(document.getElementById('chart'));
+
+		myChart.setOption({
+			title: {
+				text: '未来一周气温变化',
+				subtext: '纯属虚构',
+			},
+			legend: {},
+			tooltip: {
+				trigger: 'axis',
+			},
+			toolbox: {
+				right: '10%',
+				show: true,
+				itemSize: 20,
+				showTitle: true,
+				feature: {
+					saveAsImage: {
+						type: 'gif',
+						name: 'kaivon',
+						backgroundColor: 'pink',
+						excludeComponents: ['toolbox', 'title', 'legend'],
+						show: true,
+						title: '保存一下',
+						iconStyle: {
+							color: 'green',
+							borderColor: 'red',
+							borderWidth: 1,
+						},
+						emphasis: {	//hover时候的样式设置
+							iconStyle: {
+								color: 'red',
+								borderColor: 'green',
+								borderWidth: 1,
+							}
+						},
+						pixelRatio: 2,
+					},
+					restore: {
+						show: true,
+						title: '恢复',
+					},
+					dataView: {
+						show: true,
+						readOnly: false,
+						optionToContent: function (opt) {
+							console.log(opt);
+							var axisData = opt.xAxis[0].data;
+							var series = opt.series;
+							var table = '<table style="width:100%;text-align:center"><tbody><tr>'
+								+ '<td>时间</td>'
+								+ '<td>' + series[0].name + '</td>'
+								+ '<td>' + series[1].name + '</td>'
+								+ '</tr>';
+
+							for (var i = 0, l = axisData.length; i < l; i++) {
+								table += '<tr>'
+									+ '<td>' + axisData[i] + '</td>'
+									+ '<td>' + series[0].data[i] + '</td>'
+									+ '<td>' + series[1].data[i] + '</td>'
+									+ '</tr>';
+							}
+							table += '</tbody></table>';
+							return table;
+						},
+						contentToOption:function(container,opt){
+							//用户点击刷新按钮的时候触发这个方法
+							//console.log(opt);
+						},
+						lang:['数据视图1', '关闭1', '刷新1'],
+						backgroundColor:'gray',
+					},
+					dataZoom:{
+						show:true,
+						title:{
+							zoom:'缩放',
+							back:'还原'
+						},
+						xAxisIndex:'true',
+					},
+					magicType:{
+						show:true,
+						type:['line','bar','stack','tiled'],
+						title:{
+							line:'换成线'
+						},
+						option:{
+							line:{
+								/* title:{
+									line:'换成线1'
+								} */
+							}
+						}	
+					},
+					brush:{
+					}
+				}
+			},
+			xAxis: {
+				boundaryGap: false,
+				data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+			},
+			yAxis: {
+				axisLabel: {
+					formatter: '{value} °C',
+				}
+			},
+			series: [
+				{
+					name: '最高气温',
+					type: 'line',
+					data: [11, 11, 15, 13, 12, 13, 10],
+				},
+				{
+					name: '最低气温',
+					type: 'line',
+					data: [1, -2, 2, 5, 3, 2, 0],
+				},
+			],
+		});
+	</script>
+</body>
+
+</html>
