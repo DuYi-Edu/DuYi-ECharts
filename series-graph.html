@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		#chart {
+			width: 1500px;
+			height: 1000px;
+			border: 1px solid #000;
+		}
+	</style>
+	<script src="js/graphData.js"></script>
+	<script src="js/echarts.js"></script>
+</head>
+
+<body>
+	<div id="chart"></div>
+	<script>
+		//添加类目数据
+		var categories=[];
+		for(var i=0;i<7;i++){
+			categories[i]={
+				name :'人物关系'+(i+1)
+			}
+		}
+
+		var myChart = echarts.init(document.getElementById('chart'));
+		myChart.setOption({
+			title:{
+				text:'人民的名义关系图谱',
+				top:'bottom',
+				left:'right',
+				textStyle:{
+					fontSize:24,
+				}
+			},
+			legend:{
+				data:categories.map(function(item){
+					return item.name;
+				}),
+				top:20,
+				itemGap:20,
+			},
+			tooltip:{
+				formatter:function(param){
+					//console.log(param);
+					if(!param.data.des){
+						//这个条件成立，说明现在鼠标在边身上
+						return param.data.source+' 与 '+param.data.target+'的关系为：'+param.data.name;
+					}else{
+						//走到这说明现在鼠标在节点身上
+						return param.data.name+'<br>'+param.data.des;
+					}
+				}
+			},
+			series:{
+				name:'人民的名义关系图谱',
+				type:'graph',
+
+				coordinateSystem :null,
+				hoverAnimation :true,
+
+				layout :'force',
+				circular :{
+					rotateLabel :false,
+				},
+				force :{
+					repulsion :500,
+					gravity :0.1,
+					edgeLength :30,
+				},
+				draggable :true,
+
+				roam :true,
+				nodeScaleRatio :0.6,
+				focusNodeAdjacency :true,
+				symbol :'circle',
+				edgeSymbol :['none', 'none'],	//[起点关系的图形(对应links.source),终点关系的图形(对应links.target)]
+				//edgeSymbolSize :50,
+
+				itemStyle :{
+					borderColor:'#fff',
+					borderWidth:1,
+					shadowBlur:10,
+					shadowColor:'rgba(0,0,0,0.6)',
+				},
+
+				lineStyle :{
+					color:'source',
+					curveness :0.3,
+				},
+
+				label :{
+					show:false,
+					//position:'center'
+					textBorderColor:'#666',
+					textBorderWidth:2,
+					fontSize:14,
+				},
+				edgeLabel :{	//线条上的文本标签
+					show:true,
+					fontSize:14,
+					formatter:function(param){
+						//console.log(param);
+						return param.data.name;
+					}
+				},
+				emphasis :{
+					label:{
+						fontSize:20,
+					},
+					lineStyle:{
+						width:10,
+					},
+					edgeLabel:{
+						color:'pink',
+					}
+				},
+				categories:categories,
+
+				data:data.nodes,
+				links:data.links,
+				/* data:[
+					{
+						name:'李达康',
+						symbolSize :80,
+						x:100,
+						y:100,
+						// itemStyle:{
+						// 	color:'blue',
+						// },
+						category :0,
+						"des": "汉东省省委常委，京州市市委书记。是一个正义无私的好官。<br/>但为人过于爱惜自己的羽毛，对待身边的亲人和朋友显得有些无情。",	//这条属性是我自己定义的
+						value:0,
+						label:{
+							show:true,
+						}
+					},
+					{
+						name:'孙连城',
+						symbolSize :40,
+						x:200,
+						y:200,
+						// itemStyle:{
+						// 	color:'green',
+						// },
+						category :0,
+						"des": '是本作中“懒政”干部的代表人物，不想升迁，也不想贪腐，<br/>一心观测天文，自称“心怀宇宙”',
+						value:1,
+					},
+					{
+						name:'沙瑞金',
+						symbolSize :40,
+						x:-200,
+						y:200,
+						category :1,
+						"des": "汉东省省委书记",
+						value:2,
+					}
+				],
+				links:[
+					{
+						source:'李达康',	//关系的起点对应的数据名称
+						target:'孙连城',	//关系的终点对应的数据名称
+						name:'前任领导',	//这条属性是它俩的关系，但是这条属性是我自己定义的
+					},
+					{
+						source:2,
+						target:0,
+						name:'朋友',
+						symbol:['arrow','arrow'],
+					}
+				] */
+			}
+		});
+	</script>
+</body>
+
+</html>
