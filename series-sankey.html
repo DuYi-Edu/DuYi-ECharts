@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		#chart {
+			width: 1500px;
+			height: 1000px;
+		}
+	</style>
+	<script src="js/echarts.js"></script>
+	<script src="js/sankeyData.js"></script>
+</head>
+
+<body>
+	<div id="chart"></div>
+	<script>
+		var myChart = echarts.init(document.getElementById('chart'));
+
+		myChart.setOption({
+			animation: false,
+			title: {
+				text: '世界杯',
+			},
+			series: [
+				{
+					type: 'sankey',
+					nodeWidth: 20,
+					nodeGap: 8,
+					nodeAlign: 'right',
+					orient: 'horizontal',
+					draggable: true,
+					focusNodeAdjacency: false,
+					label: {
+						color: 'green',
+						fontSize: 22,
+					},
+					itemStyle: {
+						shadowBlur: 10,
+						shadowColor: 'rgba(0,0,0,0.6)',
+					},
+					lineStyle: {
+						curveness: 0.5
+					},
+					// emphasis: {	//如果focusNodeAdjacency不为false的时候，这条配置是没有作用的
+					// 	label: {
+					// 		fontSize: 30,
+					// 	},
+					// 	itemStyle: {
+					// 		borderWidth: 3,
+					// 	},
+					// },
+
+					data:data.nodes,
+					links:data.links,
+
+					// data: [
+					// 	{
+					// 		name: '德国',
+					// 		// emphasis: {	//如果focusNodeAdjacency不为false的时候，这条配置是没有作用的
+					// 		// 	label: {
+					// 		// 		fontSize: 30,
+					// 		// 	},
+					// 		// 	itemStyle: {
+					// 		// 		borderWidth: 3,
+					// 		// 	},
+					// 		// },
+					// 	},
+					// 	{
+					// 		name: '法国',
+					// 	},
+					// 	{
+					// 		depth: 0,
+					// 		name: '英国',
+					// 	},
+					// 	{
+					// 		name: '克罗地亚'
+					// 	},
+					// 	{
+					// 		name: '巴西'
+					// 	},
+					// 	{
+					// 		name: '比利时'
+					// 	},
+					// 	{
+					// 		name: '阿根廷',
+					// 		depth: 2,
+					// 	},
+					// 	{
+					// 		name: '葡萄牙',
+					// 		depth: 1,
+					// 	},
+					// 	{
+					// 		name: '西班牙',
+					// 		depth: 3,
+					// 	}
+					// ],
+					// links: [
+					// 	{
+					// 		source: '德国',
+					// 		target: '巴西',
+					// 		value: 2,
+					// 	},
+					// 	{
+					// 		source: '法国',
+					// 		target: '比利时',
+					// 		value: 1,
+					// 	},
+					// 	{
+					// 		source: '法国',
+					// 		target: '克罗地亚',
+					// 		value: 2,
+					// 	},
+					// 	{
+					// 		source: '法国',
+					// 		target: '巴西',
+					// 		value: 3,
+					// 	},
+					// 	{
+					// 		source: '英国',
+					// 		target: '葡萄牙',
+					// 		value: 2,
+					// 	},
+					// 	{
+					// 		source: '葡萄牙',
+					// 		target: '阿根廷',
+					// 		value: 4,
+					// 	},
+					// 	{
+					// 		source: '阿根廷',
+					// 		target: '西班牙',
+					// 		value: 4,
+					// 	},
+					// ],
+				}
+			]
+		});
+	</script>
+</body>
+
+</html>
