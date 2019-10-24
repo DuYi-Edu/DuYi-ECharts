@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		#chart {
+			width: 1500px;
+			height: 1000px;
+		}
+	</style>
+	<script src="js/echarts.js"></script>
+</head>
+
+<body>
+	<div id="chart"></div>
+	<script>
+		var myChart = echarts.init(document.getElementById('chart'));
+		myChart.setOption({
+			legend: {},
+			xAxis: {
+				data: ['篮球', '足球', '排球', '网球'],
+				axisTick: {
+					show: false,
+				}
+			},
+			yAxis: {
+				splitLine: {
+					show: false,
+				}
+			},
+			series: [
+				{
+					animation: false,
+
+					name: '昨日销量',
+					type: 'bar',
+					data: [60, 40, 72, 33],
+
+
+					legendHoverLink: false,
+					coordinateSystem: 'cartesian2d',
+					label: {
+						show: true,
+						position: 'top',
+					},
+					itemStyle: {
+						color: 'green',
+					},
+					emphasis: {
+						label: {
+							fontSize: 20,
+						},
+						itemStyle: {
+							opacity: 0.5,
+						}
+					},
+					barWidth :'50%',
+					barMaxWidth: 50,
+					barMinHeight: 500,
+					//barGap :'30%',
+					barCategoryGap: '20%',
+				},
+				{
+					animation: false,
+
+					name: '今日销量',
+					type: 'bar',
+					data: [45, 60, 13, 25]
+				},
+			]
+		});
+	</script>
+</body>
+
+</html>
