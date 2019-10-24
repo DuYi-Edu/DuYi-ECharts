@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		#chart {
+			width: 1500px;
+			height: 1000px;
+		}
+	</style>
+	<script src="js/lifeData.js"></script>
+	<script src="js/echarts.js"></script>
+</head>
+
+<body>
+	<div id="chart"></div>
+	<script>
+		//console.log(5e8);
+		function sizeFunction(x){
+			var y=Math.sqrt(x/5e8)+0.1;
+			//console.log(y);
+			return y*80;
+		}
+		var myChart = echarts.init(document.getElementById('chart'));
+
+		var option = {
+			baseOption: {
+				backgroundColor: '#404a59',
+				title: [
+					{	//这个里面放的是年份，它必需放在第一位
+						text: data.timeline[0],
+						left: '60%',
+						top: '55%',
+						textStyle: {
+							fontSize: 100,
+							color: 'rgba(255,255,255,0.7)'
+						}
+					},
+					{
+						text: '全国人均寿命与GDP关系演变',
+						left: 'center',
+						top: 10,
+						textStyle: {
+							color: '#aaa',
+							fontWeight: 'normal',
+							fontSize: 20,
+						}
+					}
+				],
+				grid: {
+					top: 100,
+					left: 30,
+					right: 100,
+					containLabel: true,
+				},
+				xAxis: {
+					name: "人均收入",
+					nameLocation: 'middle',
+					nameTextStyle: {
+						fontSize: 18,
+					},
+					axisLine: {
+						lineStyle: {
+							color: '#ccc',
+						}
+					},
+					splitLine: {
+						show: false,
+					},
+
+					/*
+						对数
+							3^2=9	a^x=N
+					 */
+					type: 'log',
+					min: 300,
+					max: 100000,
+
+					axisLabel: {
+						formatter: '{value} $',
+					}
+				},
+				yAxis: {
+					max: 100,
+					name: '平均寿命',
+					nameTextStyle: {
+						color: '#ccc',
+						fontSize: 18,
+					},
+					axisLine: {
+						lineStyle: {
+							color: '#ccc',
+						}
+					},
+					splitLine: {
+						show: false,
+					},
+					axisLabel: {
+						formatter: '{value} 岁',
+					}
+				},
+				timeline: {
+					axisType: 'category',
+					orient: 'vertical',
+
+					right: 0,
+					top: 20,
+					bottom: 20,
+					width: 55,
+
+					lineStyle: {
+						color: '#555',
+					},
+					controlStyle: {
+						showNextBtn: false,
+						showPrevBtn: false,
+						color: '#666',
+						borderColor: '#666',
+					},
+					data: [],
+
+					label: {
+						color: '#999',
+					},
+					symbol: 'none',
+					checkpointStyle: {
+						color: '#bbb',
+						borderColor: '#777',
+						borderWidth: 2,
+					},
+					inverse: true,
+					emphasis: {
+						label: {
+							color: '#fff',
+						},
+						controlStyle: {
+							color: '#aaa',
+							borderColor: '#aaa',
+						},
+					},
+
+					autoPlay:true,
+					playInterval:1000,
+				},
+				series:{
+					type:'scatter',
+					itemStyle:{
+						opacity:0.8,
+						shadowBlur:10,
+						shadowOffsetX:0,
+						shadowOffsetY:0,
+						shadowColor:'rgba(0,0,0,0.5)',
+					},
+					symbolSize:function(val){
+						return sizeFunction(val[2]);
+					},
+				},
+				visualMap:{
+					show:false,
+					categories:data.counties,
+					dimension :3,
+					inRange:{
+						color:(function(){
+							var colors=['#bcd3bb', '#e88f70', '#edc1a5', '#9dc5c8', '#e1e8c8', '#7b7c68', '#e5b5b5', '#f0b489', '#928ea8', '#bda29a'];
+							return colors.concat(colors);
+						})()
+					}
+				},
+				tooltip:{
+					padding:5,
+					backgroundColor:'#222',
+					borderColor:'#777',
+					borderWidth:1,
+					formatter:function(obj){
+						//console.log(obj.value);
+						var value=obj.value;
+
+						return '国家：'+value[3]+'<br>'
+							+ '人均寿命：'+value[1]+'岁 <br>'
+							+ '人均收入：'+value[0]+'美元 <br>'
+							+ '总人口：'+value[2]+'<br>';
+					}
+				}
+			},
+			options: [
+
+			]
+		}
+
+		for (var i = 0; i < data.timeline.length; i++) {
+			option.baseOption.timeline.data.push(data.timeline[i]);
+			option.options.push({
+				title:{	//更新标题
+					text:data.timeline[i],
+				},
+				series:{
+					data:data.series[i],
+				}
+			});
+		}
+
+		myChart.setOption(option);
+	</script>
+</body>
+
+</html>
