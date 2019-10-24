@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		#chart {
+			width: 1500px;
+			height: 1000px;
+		}
+	</style>
+	<script src="js/threeData.js"></script>
+	<script src="js/echarts.js"></script>
+</head>
+
+<body>
+	<div id="chart"></div>
+	<script>
+		var myChart = echarts.init(document.getElementById('chart'));
+		myChart.setOption({
+			tooltip: {},
+			series: [
+				{
+					type: 'tree',
+					data: [data],
+					left: '2%',
+					right: '2%',
+					top: '8%',
+					bottom: '20%',
+
+					layout: 'orthogonal',
+					orient: 'LR',
+
+					symbol: 'emptyCircle',
+					symbolSize: 7,
+
+					roam: true,
+
+					expandAndCollapse: true,
+					initialTreeDepth: 2,
+
+					itemStyle: {
+						color: 'green',	//树枝的填充色
+					},
+					label: {
+						position: 'left',
+						fontSize: 14,
+					},
+					lineStyle: {
+						color: 'pink',
+						width: 1,
+						curveness: 0.5
+					},
+					emphasis: {
+						label: {
+							fontSize: 20,
+						},
+						lineStyle: {	//没起作用
+							color: 'blue',
+						},
+					},
+					leaves :{	//没有展开的样式
+						label:{
+							position: 'right',
+						}
+					}
+				}
+			]
+		});
+	</script>
+</body>
+
+</html>
