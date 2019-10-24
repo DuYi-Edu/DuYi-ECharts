@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		#chart {
+			width: 1500px;
+			height: 1000px;
+		}
+	</style>
+	<script src="js/echarts.js"></script>
+</head>
+
+<body>
+	<div id="chart"></div>
+	<script>
+		var myChart = echarts.init(document.getElementById('chart'));
+		myChart.setOption({
+			title: {
+				text: '漏斗图',
+				subtext: '纯属虚构',
+			},
+			legend: {
+				data: ['访问', '咨询', '订单', '点击', '展现'],
+			},
+			tooltip: {
+				formatter: '{a}<br>{b} : {c}%',
+			},
+			toolbox: {
+				feature: {
+					dataView: {},
+					restore: {},
+					saveAsImage: {}
+				}
+			},
+			series: [
+				{
+					name: '预期',
+					type: 'funnel',
+					min: 0,
+					max: 100,
+					minSize: '0%',
+					maxSize: '100%',
+					sort: 'descending',
+					gap: 0,
+
+					width: '80%',
+					label: {
+						show: true,
+						fontSize: 26,
+						position: 'right',
+						formatter: '{b}预期量'
+					},
+					labelLine: {
+						show: true,
+						length: 50,
+						lineStyle: {
+							color: '#000',
+							width: 3,
+						}
+					},
+					itemStyle: {
+						// color:'teal',
+						// borderColor:'#000',
+						// borderWidth:1,
+
+						opacity: 0.7
+					},
+					emphasis: {
+						label: {
+							textBorderColor: '#000',
+							textBorderWidth: 1,
+							textShadowColor: '#ccc',
+							textShadowBlur: 10,
+							formatter: '{b}预期量：{c}%',
+						},
+						labelLine: {
+							lineStyle: {
+								color: 'red',
+							}
+						}
+					},
+					data: [
+						{ name: '访问', value: 60 },
+						{ name: '咨询', value: 40 },
+						{ name: '订单', value: 20 },
+						{ name: '点击', value: 80 },
+						{ name: '展现', value: 100 },
+					]
+				},
+				{
+					name: '实际',
+					type: 'funnel',
+					width: '80%',
+					maxSize:'80%',
+					label:{
+						position:'inside',
+						formatter:'{c}%',
+						textStyle:{
+							fontSize:20,
+						}
+					},
+					itemStyle:{
+						opacity:0.5,
+						borderWidth:2,
+					},
+					emphasis:{
+						label:{
+							formatter:'{b}实际量：{c}%'
+						}
+					},
+
+					data: [
+						{ name: '访问', value: 30 },
+						{ name: '咨询', value: 10 },
+						{ name: '订单', value: 5 },
+						{ name: '点击', value: 50 },
+						{ name: '展现', value: 80 },
+					]
+				}
+			]
+		});
+	</script>
+</body>
+
+</html>
