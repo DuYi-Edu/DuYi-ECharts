@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		div {
+			width: 1000px;
+			height: 800px;
+		}
+	</style>
+	<script src="js/echarts.js"></script>
+</head>
+
+<body>
+	<div id="chart1"></div>
+	<script>
+		var myChart1 = echarts.init(document.getElementById('chart1'));
+
+		myChart1.setOption({
+			radar:{
+				indicator:[
+					{name:'得分',max:150,min:60,color:'red'},
+					{name:'篮板'},
+					{name:'助攻'},
+					{name:'抢断'},
+					{name:'盖帽'},
+					{name:'投篮'},
+					{name:'三分'},
+				],
+				center: ['50%', '50%'],
+				radius:'75%',
+				startAngle:90,
+				name:{
+					show:true,
+					formatter:'{value} !',
+					formatter: function (value, indicator) {
+
+						//console.log(indicator);
+						return '【' + value + '】';
+					},
+				},
+				nameGap:25,
+				splitNumber:10,
+				shape:'polygon',
+
+				axisLine:{
+					lineStyle:{
+						//color:'blue',
+					}
+				},
+
+				splitLine:{
+					show:true,
+					lineStyle:{
+						//color:'blue',
+						//color:['blue','red','green','pink'],
+					},
+				},
+
+				splitArea:{
+					show:true,
+					areaStyle:{
+						/* color:'green',
+						color:['blue','red'], */
+					}
+				}
+			},
+			series:{
+				type:'radar',
+				data:[
+					{
+						name:'火箭',
+						value:[109,38,29,6,2,60,17]
+					},
+					{
+						name:'勇士',
+						value:[118,36,25,6,6,77,13]
+					}
+				]
+			}
+		});
+	</script>
+</body>
+
+</html>
