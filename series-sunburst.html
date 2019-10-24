@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		#chart {
+			width: 1500px;
+			height: 1000px;
+		}
+	</style>
+	<script src="js/sunburstData.js"></script>
+	<script src="js/echarts.js"></script>
+</head>
+
+<body>
+	<div id="chart"></div>
+	<script>
+		var myChart = echarts.init(document.getElementById('chart'));
+		myChart.setOption({
+			title: {
+				text: 'WORLD COFFEE RESEARCH SENSORY LEXICON',
+				subtext: 'Source: https://worldcoffeeresearch.org/work/sensory-lexicon/',
+				textStyle: {
+					fontSize: 20,
+				},
+				subTextStyle: {
+					fontSize: 14,
+				},
+				left: 'center',
+				sublink: 'https://worldcoffeeresearch.org/work/sensory-lexicon/'
+			},
+			tootip: {},
+			series: {
+				type: 'sunburst',
+				data: data,
+
+				center: ['50%', '50%'],
+				radius: ['20%', '75%'],
+
+				label: {
+					rotate: 'radial',
+					align: 'center',
+					minAngle: 0,
+				},
+
+				itemStyle: {
+					color: 'green',	//优先级不够，所以没有起作用
+					/* borderWidth:2,
+					borderColor:'#000', */
+				},
+
+				highlightPolicy: 'descendant',
+				emphasis: {	//当前块
+					itemStyle: {
+						shadowColor: '#000',
+						shadowBlur: 15,
+					}
+				},
+				highlight: {	//相关扇形块
+					itemStyle: {
+						color: '#333',
+					}
+				},
+				downplay: {		//不相关扇形块
+					itemStyle: {
+						opacity: 0.3,
+					}
+				},
+
+				nodeClick: 'rootToNode',
+				sort: 'desc',
+				renderLabelForZeroData: true,
+
+
+				levels: [
+					{	//下钻点的空白配置
+						itemStyle: {
+							color: 'pink',
+						}
+					},
+					{	//最靠内则的第一层
+						itemStyle: {
+							borderWidth: 5,
+						},
+						label: {
+							color: 'blue',
+							fontSize: 16,
+						}
+					},
+					{	//第二层
+						/* itemStyle:{
+							color:'red',
+						}, */
+						label: {
+							color: '#000',
+							fontWeight: 'bold',
+						}
+					},
+					{	//第三层
+						r0: '70%',
+						r: '72%',
+						label: {
+							position: 'outside',
+							padding: 3,
+						},
+						itemStyle: {
+							borderWidth: 3,
+						}
+					}
+				],
+			}
+		});
+	</script>
+</body>
+
+</html>
