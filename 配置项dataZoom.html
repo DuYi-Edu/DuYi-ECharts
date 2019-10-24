@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		div {
+			width: 1000px;
+			height: 800px;
+		}
+	</style>
+	<script src="js/echarts.js"></script>
+</head>
+
+<body>
+	<div id="chart1"></div>
+	<script>
+		var data1 = [],
+			data2 = [],
+			data3 = [];
+
+		function random(max) {
+			return (Math.random() * max).toFixed(3);
+		}
+
+		/*
+			['10.209','6.245','30.369'], 
+			['10.209','6.245','30.369'], 
+			['10.209','6.245','30.369'], 
+			['10.209','6.245','30.369'], 
+			['10.209','6.245','30.369'], 
+			...
+		 */
+		for (var i = 0; i < 500; i++) {
+			data1.push([random(15), random(10), random(1)]);
+			data2.push([random(10), random(10), random(1)]);
+			data3.push([random(15), random(10), random(1)]);
+		}
+
+		var myChart = echarts.init(document.getElementById('chart1'));
+		myChart.setOption({
+			animation: false,	//不开启动画
+
+			legend: {},
+			xAxis: {},
+			yAxis: {},
+			dataZoom: [
+				{
+					type: 'inside',
+					disabled: false,
+
+					xAxisIndex: 0,
+					//yAxisIndex:0,
+
+					/* start:30,
+					end:50, */
+					startValue: 2,
+					endValue: 5,
+					//rangeMode:['value', 'percent'],
+					orient: 'vertical',
+					//zoomLock:false,
+
+					zoomOnMouseWheel: true,
+					moveOnMouseMove: true,
+					moveOnMouseWheel: 'alt',
+					preventDefaultMouseMove: true,
+				},
+				{
+					type: 'inside',
+					yAxisIndex: [0],
+					//zoomLock:false,
+					start:30,
+					end:50,
+				},
+				{
+					type: 'slider',
+					backgroundColor: 'green',
+					dataBackground: {
+						lineStyle: {
+							opacity: 1,
+							color: 'red',
+						},
+						areaStyle: {
+							opacity: 1,
+							color: 'pink',
+							shadowColor: 'rgba(0, 255, 255, 1)',
+							shadowBlur: 1,
+							shadowOffsetX:10,
+						}
+					},
+					fillerColor:'teal',
+					borderColor:'red',
+					handleIcon:'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7',
+					handleSize:'70%',
+					handleStyle:{
+						color:'green',
+						borderColor:'green',
+						borderWidth:2,
+					},
+					labelPrecision:0,
+					labelFormatter:'{value} ~',
+					labelFormatter:function(value){
+						return value.toFixed(1)+' ~'
+					},
+					showDetail:true,
+					showDataShadow:true,
+					realtime:false,
+
+					textStyle:{
+						color:'blue',
+						fontSize:16,
+					},
+
+					//orient: 'vertical',
+
+					left:'center'
+				},
+				{
+					type: 'slider',
+					yAxisIndex:0,
+					start:30,
+					end:50,
+				}
+			],
+			series: [
+				{
+					name: '钢铁',
+					type: 'scatter',
+					data: data1,
+					symbolSize: function (val) {
+						return val[2] * 40;
+					}
+				},
+				{
+					name: '石油',
+					type: 'scatter',
+					data: data2,
+					symbolSize: function (val) {
+						return val[2] * 40;
+					}
+				},
+				{
+					name: '煤炭',
+					type: 'scatter',
+					data: data3,
+					symbolSize: function (val) {
+						return val[2] * 40;
+					}
+				},
+			]
+		});
+	</script>
+</body>
+
+</html>
